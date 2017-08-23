@@ -18,4 +18,4 @@ make all -j32
 # Module needed for running HED training
 module load numpy/1.11.1-foss-2016b-Python-2.7.13
 
-setenv PYTHONPATH $FASTDIR/hed/python:$PYTHONPATH
+export PYTHONPATH=$FASTDIR/hed/python:$PYTHONPATH
