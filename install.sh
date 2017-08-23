@@ -1,3 +1,4 @@
+make clean
 module purge
 
 # Modules needed for install of HED
