@@ -15,6 +15,7 @@ module load snappy/1.1.3-foss-2016b
 module load CUDA/8.0.61
 
 make all -j32
+make pycaffe -j32
 
 # Module needed for running HED training
 module load numpy/1.11.1-foss-2016b-Python-2.7.13
