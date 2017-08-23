@@ -1,3 +1,5 @@
+module purge
+
 # Modules needed for install of HED
 module load Python/2.7.13-foss-2016b
 module load Boost/1.61.0-foss-2016b
