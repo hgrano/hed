@@ -37,7 +37,7 @@ module load CUDA/8.0.61
 # pip install Pillow
 # pip install six
 
-make all -j32
+# make all -j32
 # make pycaffe -j32
 
 # Module needed for running HED training
