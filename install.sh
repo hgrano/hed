@@ -4,7 +4,7 @@ module purge
 # Python setup for HED
 module load Python/2.7.13-foss-2016b
 mkdir -p $FASTDIR/virtualenvs/hed
-source $FASTDIR/virtualenvs/hed/bin/activate.csh # activate env
+source $FASTDIR/virtualenvs/hed/bin/activate # activate env
 pip install Cython
 pip install numpy
 pip install scipy
