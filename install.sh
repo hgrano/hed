@@ -1,10 +1,9 @@
 make clean
 module purge
 
-module load Boost/1.61.0-foss-2016uofa-Python-2.7.11
 # Python setup for HED
-module load Python/2.7.11-foss-2016uofa
-
+module load Python/2.7.13-foss-2016b
+module load Boost/1.61.0-foss-2016b
 module load protobuf/2.6.1-foss-2016b
 module load glog/0.3.3-foss-2016b
 module load gflags/2.1.2-foss-2016b
