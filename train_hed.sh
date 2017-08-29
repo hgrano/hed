@@ -1,7 +1,7 @@
 module purge
 module load Python/2.7.13-foss-2016b
 mkdir -p $FASTDIR/virtualenvs/hed
-source $FASTDIR/virtualenvs/hed/bin/activate.sh # activate env
+source $FASTDIR/virtualenvs/hed/bin/activate # activate env
 pip install Cython
 pip install numpy
 pip install scipy
@@ -17,7 +17,7 @@ pip install python-dateutil>=1.4,<2
 pip install protobuf
 pip install python-gflags
 pip install pyyaml
-pip install Pillow
+pip install Pillowt
 pip install six
 
 
