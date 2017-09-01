@@ -1,3 +1,5 @@
+# Execute the following commands to build HED locally on your Phoenix account
+
 module purge
 
 # Python setup for HED
@@ -5,7 +7,7 @@ module load Python/2.7.13-foss-2016b
 mkdir -p $FASTDIR/virtualenvs/hed
 source $FASTDIR/virtualenvs/hed/bin/activate.csh # activate env
 
-You will need to download and buld Boost.Python (not available on Phonix as of September 2017) i.e. do something like the following:
+You will need to download and build Boost.Python (not available on Phoenix as of September 2017) i.e. do something like the following:
 cd ~/fastdir/ 
 wget "http://dl.bintray.com/boostorg/release/1.65.0/source/boost_1_65_0.tar.gz"
 tar -xvzf boost_1_65_0.tar.gz
