@@ -1,7 +1,3 @@
-# Change directory into wherever you have this repo /path/to/my/hed
-make clean
-module purge
-
 # Python setup for HED
 module load Python/2.7.13-foss-2016b
 mkdir -p $FASTDIR/virtualenvs/hed
@@ -15,7 +11,10 @@ cd boost_1_65_0
 ./bootstrap --with-libraries=python --prefix=~/fastdir/boost
 ./b2 install
 
+# Change directory into wherever you have this repo /path/to/my/hed
 cd ~/path/to/your/hed
+make clean
+module purge
 
 setenv PY_INC `python -c "from distutils import sysconfig; print sysconfig.get_python_inc()"` # Python include
 setenv PY_INC `python -c "import numpy as np; print np.get_include()"`:$PY_INC # Numpy include
