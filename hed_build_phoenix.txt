@@ -6,6 +6,7 @@ cd boost_1_65_0
 ./bootstrap --with-libraries=python --prefix=~/fastdir/boost
 ./b2 install
 
+# Change directory into wherever you have this repo /path/to/my/hed
 make clean
 module purge
 
@@ -54,4 +55,5 @@ module load CUDA/8.0.61
 make all -j32
 make pycaffe -j32
 
-setenv PYTHONPATH $FASTDIR/hed/python:$PYTHONPATH
+# Replace /path/to/hed with your correct path
+setenv PYTHONPATH $FASTDIR/path/to/hed/python:$PYTHONPATH
