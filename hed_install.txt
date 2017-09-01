@@ -5,6 +5,10 @@ module purge
 module load Python/2.7.13-foss-2016b
 mkdir -p $FASTDIR/virtualenvs/hed
 source $FASTDIR/virtualenvs/hed/bin/activate.csh # activate env
+setenv PYTHON_INC `python -c "from distutils import sysconfig; print sysconfig.get_python_inc()"` # Python include
+setenv PYTHON_INC `python -c "import numpy as np; print np.get_include()` # Numpy include
+setenv PYTHON_LIB `python -c "from distutils import sysconfig; print sysconfig.get_python_lib()`
+
 pip install Cython
 pip install numpy
 pip install scipy
