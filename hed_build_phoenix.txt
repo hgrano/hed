@@ -2,9 +2,10 @@
 
 module purge
 
-# Python setup for HED
+# Create python virutal environment for HED
 module load Python/2.7.13-foss-2016b
 mkdir -p $FASTDIR/virtualenvs/hed
+virtualenv --system-site-packages -p python2 $FASTDIR/virtualenvs/hed
 source $FASTDIR/virtualenvs/hed/bin/activate.csh # activate env
 
 You will need to download and build Boost.Python (not available on Phoenix as of September 2017) i.e. do something like the following:
