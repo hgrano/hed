@@ -1,5 +1,5 @@
 # Execute the following commands to build HED locally on your Phoenix account
-
+# The instructions are written for tcsh (not bash) which is the defautlt for Phoenix
 module purge
 
 # Create python virutal environment for HED
