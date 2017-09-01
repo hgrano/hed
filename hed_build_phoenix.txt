@@ -18,7 +18,7 @@ cd ~/path/to/your/hed
 make clean
 
 setenv PY_INC `python -c "from distutils import sysconfig; print sysconfig.get_python_inc()"`
-setenv PY_INC `python -c "import numpy as np; print np.get_include()"`:$PY_INC 
+setenv NUMPY_INC `python -c "import numpy as np; print np.get_include()"` 
 setenv PY_LIB `python -c "from distutils import sysconfig; print sysconfig.get_python_lib()"`
 setenv BOOST_INCLUDE $FASTDIR/boost/include
 setenv BOOST_LIB $FASTDIR/boost/lib
