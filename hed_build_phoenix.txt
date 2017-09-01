@@ -1,3 +1,11 @@
+You will need to download and buld Boost.Python (not available on Phonix as of September 2017) i.e. do something like the following:
+cd ~/fastdir/ 
+wget "http://dl.bintray.com/boostorg/release/1.65.0/source/boost_1_65_0.tar.gz"
+tar -xvzf boost_1_65_0.tar.gz
+cd boost_1_65_0
+./bootstrap --with-libraries=python --prefix=~/fastdir/boost
+./b2 install
+
 make clean
 module purge
 
