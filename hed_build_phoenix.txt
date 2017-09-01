@@ -51,9 +51,9 @@ module load LevelDB/1.18-foss-2016b
 module load snappy/1.1.3-foss-2016b
 module load CUDA/8.0.61
 
+# Replace /path/to/hed with your correct path
+setenv PYTHONPATH $FASTDIR/path/to/hed/python:$PYTHONPATH
 
 make all -j32
 make pycaffe -j32
 
-# Replace /path/to/hed with your correct path
-setenv PYTHONPATH $FASTDIR/path/to/hed/python:$PYTHONPATH
