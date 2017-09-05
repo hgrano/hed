@@ -19,5 +19,5 @@ def main(path_to_train_lst):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Compute Image Mean')
     parser.add_argument('--train-list', dest='train_lst_path')
-    parser.parse_args()
-    main(parser.train_lst_path)
+    args = parser.parse_args()
+    main(args.train_lst_path)
