@@ -39,10 +39,6 @@ HED_ROOT=$FASTDIR/hed
 DATA_ROOT=$HED_ROOT/data
 HED_TOOLS=$HED_ROOT/build/tools
 
-# Compute Image mean
-GLOG_logtostderr=1 $HED_TOOLS/convert_imageset --shuffle $DATA_ROOT $DATA_ROOT/train_pair.lst $DATA_ROOT/train_lmdb # convert data set
-$HED_TOOLS/compute_image_mean $DATA_ROOT/train_lmdb $DATA_ROOT/mean_image.binaryproto # image mean
-
 # Begin training
 cd $HED_ROOT/examples/hed
 python solve.py
