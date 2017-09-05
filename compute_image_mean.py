@@ -5,7 +5,8 @@ import argparse
 
 def compute_image_mean(paths_lst):
     rgb_sum = np.array([0.0, 0.0, 0.0])
-    for path in paths_lst:
+    for line in paths_lst:
+        path = line.split()[0]
         img = scipy.ndimage.imread(path)
         for channel in range(0, 3):
             rgb_sum[channel] += np.sum(img[:, :, channel])
