@@ -44,7 +44,7 @@ GLOG_logtostderr=1 $HED_TOOLS/convert_imageset --shuffle $DATA_ROOT $DATA_ROOT/t
 $HED_TOOLS/compute_image_mean $DATA_ROOT/train_lmdb $DATA_ROOT/mean_image.binaryproto # image mean
 
 # Begin training
-cd examples/hed
+cd $HED_ROOT/examples/hed
 python solve.py
 
 
