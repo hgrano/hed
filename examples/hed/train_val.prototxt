@@ -9,7 +9,9 @@ layer {
   }
   transform_param {
     mirror: false
-    mean_file: "../../data/mean_image.binaryproto"
+    mean_value: 17.84271756
+    mean_value: 22.54725679
+    mean_value: 36.89356086
   }
   image_data_param {
     root_folder: "../../data/"
@@ -30,7 +32,9 @@ layer {
   }
   transform_param {
     mirror: false
-    mean_file: "../../data/mean_image.binaryproto"
+    mean_value: 17.84271756
+    mean_value: 22.54725679
+    mean_value: 36.89356086
   }
   image_data_param {
     root_folder: "../../data/"
@@ -163,4 +167,3 @@ layer { name: 'new-score-weighting' type: "Convolution" bottom: 'concat-upscore'
   param { lr_mult: 0.001 decay_mult: 1 } param { lr_mult: 0.002 decay_mult: 0}
   convolution_param { engine: CAFFE num_output: 1 kernel_size: 1 weight_filler {type: "constant" value: 0.2} } }
 layer { type: "SigmoidCrossEntropyLoss" bottom: "upscore-fuse" bottom: "label" top:"fuse_loss"  loss_weight: 1}
-
