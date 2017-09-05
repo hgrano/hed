@@ -17,7 +17,7 @@ pip install python-dateutil>=1.4,<2
 pip install protobuf
 pip install python-gflags
 pip install pyyaml
-pip install Pillowt
+pip install Pillow
 pip install six
 
 
