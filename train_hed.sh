@@ -35,9 +35,11 @@ module load CUDA/8.0.61
 
 export PYTHONPATH=$FASTDIR/hed/python:$PYTHONPATH # change as necessary to your hed
 export LD_LIBRARY_PATH=$FASTDIR/boost_py/lib:$LD_LIBRARY_PATH # change path as necessary to your installation of Boost.Python
+HED_ROOT=$FASTDIR/hed
+DATA_ROOT=$HED_ROOT/data
 # Compute Image mean
-GLOG_logtostderr=1 build/tools/convert_imageset --shuffle data/ data/train_pair.lst data/train_lmdb # convert data set
-build/tools/compute_image_mean data/train_lmdb data/mean_image.binaryproto # image mean
+GLOG_logtostderr=1 build/tools/convert_imageset --shuffle $DATA_ROOT $DATA_ROOT/train_pair.lst $DATA_ROOT/train_lmdb # convert data set
+build/tools/compute_image_mean $DATA_ROOT/train_lmdb $DATA_ROOT/mean_image.binaryproto # image mean
 
 # Begin training
 cd examples/hed
