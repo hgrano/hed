@@ -1,6 +1,7 @@
 import numpy as np
 import scipy
 import scipy.ndimage
+import argparse
 
 def compute_image_mean(paths_lst):
     rgb_sum = np.array([0.0, 0.0, 0.0])
