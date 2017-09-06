@@ -1,3 +1,7 @@
+import numpy as np
+import scipy
+import scipy.ndimage
+
 def check_imgs(paths_lst):
     for line in paths_lst:
  		split = line.split()
@@ -17,3 +21,7 @@ def check_imgs(paths_lst):
 				        print 'Warning', path, '[', i, j, k, '] is gt and =', pixel
 				    if np.isnan(img[i, j, k]):
 				        print 'Warning', path, '[', i, j, k, '] is NaN'
+
+with open('train_pair.lst') as f:
+    check_imgs(f)
+    print 'Completed check'
