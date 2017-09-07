@@ -4,6 +4,7 @@ import sys
 caffe_root = '../../' 
 sys.path.insert(0, caffe_root + 'python')
 import caffe
+import time
 
 # make a bilinear interpolation kernel
 # credit @longjon
@@ -54,5 +55,14 @@ solver.net.copy_from(base_weights)
 # 1. take SGD steps
 # 2. score the model by the test net `solver.test_nets[0]`
 # 3. repeat until satisfied
+nsteps = 0
+step_interval = 1
+start_train_time = time.time()
+while nsteps < 100000:
+    solver.step(step_interval)
+    solver.snapshot()
+    nsteps += step_interval
+    print 'COMPLETED', nsteps
+    print 'Elapsed time (sec):', time.time() - start_train_time
 solver.step(100000)
 
