@@ -64,5 +64,4 @@ while nsteps < 100000:
     nsteps += step_interval
     print 'COMPLETED', nsteps
     print 'Elapsed time (sec):', time.time() - start_train_time
-solver.step(100000)
 
