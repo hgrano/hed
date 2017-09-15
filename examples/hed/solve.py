@@ -5,7 +5,8 @@ caffe_root = '../../'
 sys.path.insert(0, caffe_root + 'python')
 import caffe
 import time
-
+max_time_seconds = float(os.environ['TIMEOUT_SECONDS'])
+start_time = time.time()
 # make a bilinear interpolation kernel
 # credit @longjon
 def upsample_filt(size):
@@ -55,11 +56,13 @@ solver.net.copy_from(base_weights)
 # 1. take SGD steps
 # 2. score the model by the test net `solver.test_nets[0]`
 # 3. repeat until satisfied
-nsteps = 100000
-step = 0
+max_nsteps = 100000
+nsteps = 0
 step_interval = 1
-start_time = time.time()
-while step < nsteps:
+
+while nsteps < nsteps and (time.time() - start_time <= max_time_seconds):
     solver.step(step_interval)
-    print 'Completed step:', step, 'elapsed time (s):', time.time() - start_time
-    step += step_interval
+    print 'Completed', nsteps, ', elapsed time (s):', time.time() - start_time
+    nsteps += step_interval
+print 'Completed', nsteps
+print 'Step interval', step_interval
