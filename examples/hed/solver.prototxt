@@ -16,6 +16,6 @@ weight_decay: 0.0002
 # Reduce this for now so we have some snapshots (was 1000)
 snapshot: 1
 snapshot_diff: false
-snapshot_prefix: "hed"
+snapshot_prefix: "snapshot"
 # uncomment the following to default to CPU mode solving
 # solver_mode: CPU 
