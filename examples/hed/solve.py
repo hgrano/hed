@@ -62,7 +62,7 @@ max_nsteps = 100000
 nsteps = 0
 step_interval = 1
 
-while nsteps < nsteps and (time.time() - start_time <= max_time_seconds):
+while nsteps < max_nsteps and (time.time() - start_time <= max_time_seconds):
     solver.step(step_interval)
     print 'Completed', nsteps, ', elapsed time (s):', time.time() - start_time
     nsteps += step_interval
