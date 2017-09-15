@@ -5,6 +5,8 @@ caffe_root = '../../'
 sys.path.insert(0, caffe_root + 'python')
 import caffe
 import time
+import os
+
 max_time_seconds = float(os.environ['TIMEOUT_SECONDS'])
 start_time = time.time()
 # make a bilinear interpolation kernel
