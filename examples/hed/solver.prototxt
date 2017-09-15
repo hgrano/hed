@@ -14,6 +14,6 @@ max_iter: 30001
 momentum: 0.9
 weight_decay: 0.0002
 snapshot: 1000
-snapshot_prefix: "hed"
+snapshot_prefix: "snapshot"
 # uncomment the following to default to CPU mode solving
 # solver_mode: CPU 
