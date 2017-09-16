@@ -47,10 +47,6 @@ caffe.set_device(0)
 
 solver = caffe.SGDSolver('solver.prototxt')
 
-# do net surgery to set the deconvolution weights for bilinear interpolation
-interp_layers = [k for k in solver.net.params.keys() if 'up' in k]
-interp_surgery(solver.net, interp_layers)
-
 solver_state_paths = glob.glob('snapshot_iter*.solverstate')
 if len(solver_state_paths) > 0:
     # copy base weights for fine-tuning
@@ -60,6 +56,11 @@ if len(solver_state_paths) > 0:
     solver.net.copy_from('snapshot_iter_' + str(last_snapshot_number) + '.caffemodel')
 else:
     solver.net.copy_from(base_weights)
+    
+# do net surgery to set the deconvolution weights for bilinear interpolation
+interp_layers = [k for k in solver.net.params.keys() if 'up' in k]
+interp_surgery(solver.net, interp_layers)
+
 
 # solve straight through -- a better approach is to define a solving loop to
 # 1. take SGD steps
