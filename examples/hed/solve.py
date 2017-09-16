@@ -68,8 +68,14 @@ else:
 max_nsteps = 100000
 nsteps = 0
 step_interval = 75
+solver.test_nets[0].share_with(solver.net)
 while nsteps < max_nsteps and (time.time() - start_time <= max_time_seconds):
     solver.step(step_interval)
+    print 'Running forward on val data'
+    solver.test_nets[0].forward()
+    for i in range(1, 6):
+        print solver.test_nets[0].blobs['dsn' + str(i) + '_loss']
+    print solver.test_nets[0].blobs['fuse_loss']
     print 'Completed', nsteps, ', elapsed time (s):', time.time() - start_time
     nsteps += step_interval
 print 'Completed', nsteps
