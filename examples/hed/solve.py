@@ -6,6 +6,7 @@ sys.path.insert(0, caffe_root + 'python')
 import caffe
 import time
 import os
+import glob
 
 max_time_seconds = float(os.environ['TIMEOUT_SECONDS'])
 start_time = time.time()
@@ -50,9 +51,15 @@ solver = caffe.SGDSolver('solver.prototxt')
 interp_layers = [k for k in solver.net.params.keys() if 'up' in k]
 interp_surgery(solver.net, interp_layers)
 
-# copy base weights for fine-tuning
-#solver.restore('dsn-full-res-3-scales_iter_29000.solverstate')
-solver.net.copy_from(base_weights)
+solver_state_paths = glob.glob('snapshot_iter*.solverstate')
+if len(solver_state_paths) > 0:
+    # copy base weights for fine-tuning
+    start_number_idx = 'snapshot_iter_@'.find('@')
+    last_snapshot_number = max(map(lambda path: int(path[start_number_idx:path.find('.')]), solver_state_paths))
+    solver.restore('snapshot_iter_' + str(last_snapshot_number) + '.solverstate')
+    solver.net.copy_from('snapshot_iter_' + str(last_snapshot_number) + '.caffemodel')
+else:
+    solver.net.copy_from(base_weights)
 
 # solve straight through -- a better approach is to define a solving loop to
 # 1. take SGD steps
@@ -60,8 +67,7 @@ solver.net.copy_from(base_weights)
 # 3. repeat until satisfied
 max_nsteps = 100000
 nsteps = 0
-step_interval = 1
-
+step_interval = 75
 while nsteps < max_nsteps and (time.time() - start_time <= max_time_seconds):
     solver.step(step_interval)
     print 'Completed', nsteps, ', elapsed time (s):', time.time() - start_time
