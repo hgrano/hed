@@ -38,7 +38,7 @@ layer {
   }
   image_data_param {
     root_folder: "../../data/"
-    source: "../../data/train_pair.lst"
+    source: "../../data/val_pair.lst"
     #Just setup the network. No real online testing
     batch_size: 1
     shuffle: true
