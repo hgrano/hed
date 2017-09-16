@@ -14,7 +14,7 @@ max_iter: 30001
 momentum: 0.9
 weight_decay: 0.0002
 # Reduce this for now so we have some snapshots (was 1000)
-snapshot: 150
+snapshot: 75
 snapshot_diff: false
 snapshot_prefix: "snapshot"
 # uncomment the following to default to CPU mode solving
