@@ -74,8 +74,8 @@ while nsteps < max_nsteps and (time.time() - start_time <= max_time_seconds):
     print 'Running forward on val data'
     solver.test_nets[0].forward()
     for i in range(1, 6):
-        print 'My dsn', i, 'loss', solver.test_nets[0].blobs['dsn' + str(i) + '_loss']
-    print 'My fuse_loss', solver.test_nets[0].blobs['fuse_loss']
+        print 'My dsn', i, 'loss', solver.test_nets[0].blobs['dsn' + str(i) + '_loss'].data[0]
+    print 'My fuse_loss', solver.test_nets[0].blobs['fuse_loss'].data[0]
     nsteps += step_interval
     print 'Completed', nsteps, ', elapsed time (s):', time.time() - start_time
 print 'Completed', nsteps
