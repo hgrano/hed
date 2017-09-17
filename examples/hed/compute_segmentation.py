@@ -8,7 +8,7 @@ sys.path.insert(0, caffe_root + 'python')
 
 import caffe
 
-def main()
+def main():
 	data_root = '../../data/'
 	with open(data_root + 'val_pair.lst') as f:
 	    test_lst = f.readlines()
