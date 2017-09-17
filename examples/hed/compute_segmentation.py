@@ -76,7 +76,7 @@ def main(caffe_mode):
 					print 'hm negative value here...'	
 					return
 				else:
-					fuse[i, j] = np.uint8(fuse[i, j])
+					fuse_uint8[i, j] = np.uint8(fuse[i, j])
 		print 'fuse.shape ==', fuse.shape
 		print 'np.sum(fuse_uint8) ==', np.sum(fuse_uint8)
 		png.from_array(fuse_uint8, 'L').save('fuse_output_' + img_number_str)
