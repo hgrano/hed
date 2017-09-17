@@ -28,7 +28,7 @@ def main(caffe_mode):
 	    im_lst.append(in_)
 
 	#remove the following two lines if testing with cpu
-	if caffe_mode == 'GPU'
+	if caffe_mode == 'GPU':
 		caffe.set_mode_gpu()
 		caffe.set_device(0)
 	elif caffe_mode == 'CPU':
