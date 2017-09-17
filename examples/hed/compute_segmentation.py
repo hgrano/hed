@@ -1,4 +1,4 @@
-import Image
+from PIL import Image
 import numpy as np
 from solve.py import get_latest_snapshot_number, snapshot_number_to_caffemodel_str
 # Make sure that caffe is on the python path:
