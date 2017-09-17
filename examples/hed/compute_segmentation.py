@@ -8,8 +8,9 @@ sys.path.insert(0, caffe_root + 'python')
 
 import caffe
 from solve import get_latest_snapshot_number, snapshot_number_to_caffemodel_str
+import argparse
 
-def main():
+def main(caffe_mode):
 	data_root = '../../data/'
 	with open(data_root + 'val_pair.lst') as f:
 	    test_lst = [x.split()[0] for x in f.readlines()] # take first item - the image
@@ -27,8 +28,14 @@ def main():
 	    im_lst.append(in_)
 
 	#remove the following two lines if testing with cpu
-	caffe.set_mode_gpu()
-	caffe.set_device(0)
+	if caffe_mode == 'GPU'
+		caffe.set_mode_gpu()
+		caffe.set_device(0)
+	elif caffe_mode == 'CPU':
+		caffe.set_mode_cpu()
+	else:
+		print 'Unrecognized caffe mode "', caffe_mode, '" Valid options are "CPU" or "GPU"'
+		return
 
 	# load net
 	latest_snapshot_number = get_latest_snapshot_number()
@@ -56,4 +63,8 @@ def main():
 		png.from_array(fuse, 'L').save('fuse_output_' + img_number_str)
 
 if __name__ == '__main__':
-	main()
+	parser = argparse.ArgumentParser(description='Test out hed + save some images!')
+	parser.add_argument('--caffe-mode', dest='caffe_mode', type=str,
+                    help='Caffe mode (CPU or GPU)', default='GPU')
+	args = parser.parse_args()
+	main(args.caffe_mode)
