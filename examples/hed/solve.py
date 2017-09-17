@@ -8,6 +8,20 @@ import time
 import os
 import glob
 
+def get_latest_snapshot_number():
+    solver_state_paths = glob.glob('snapshot_iter*.solverstate')
+    if len(solver_state_paths) > 0:
+        start_number_idx = 'snapshot_iter_@'.find('@')
+        return max(map(lambda path: int(path[start_number_idx:path.find('.')]), solver_state_paths))
+    else:
+        return None
+
+def snapshot_number_to_solverstate_str(snapshot_number):
+    return 'snapshot_iter_' + str(last_snapshot_number) + '.solverstate'
+
+def snapshot_number_to_caffemodel_str(snapshot_number):
+    return 'snapshot_iter_' + str(last_snapshot_number) + '.caffemodel'
+
 # make a bilinear interpolation kernel
 # credit @longjon
 def upsample_filt(size):
@@ -48,13 +62,10 @@ def main():
 
     solver = caffe.SGDSolver('solver.prototxt')
 
-    solver_state_paths = glob.glob('snapshot_iter*.solverstate')
-    if len(solver_state_paths) > 0:
-        # copy base weights for fine-tuning
-        start_number_idx = 'snapshot_iter_@'.find('@')
-        last_snapshot_number = max(map(lambda path: int(path[start_number_idx:path.find('.')]), solver_state_paths))
-        solver.restore('snapshot_iter_' + str(last_snapshot_number) + '.solverstate')
-        solver.net.copy_from('snapshot_iter_' + str(last_snapshot_number) + '.caffemodel')
+    latest_snapshot_number = get_latest_snapshot_number()
+    if latest_snapshot_number is not None:
+        solver.restore(snapshot_number_to_solverstate_str(latest_snapshot_number))
+        solver.net.copy_from(snapshot_number_to_caffemodel_str(latest_snapshot_number))
     else:
         solver.net.copy_from(base_weights)
 
