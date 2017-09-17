@@ -15,7 +15,7 @@ def main():
 	    
 	#test_lst = [data_root + x.strip() for x in test_lst] # full paths to each training image
 
-	test_lst = test_lst[0:min(len(test_lst, 15))]
+	test_lst = test_lst[0:min(len(test_lst), 15)]
 
 	im_lst = []
 	for i in range(0, len(test_lst)):
