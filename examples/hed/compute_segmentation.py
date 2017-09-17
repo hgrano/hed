@@ -1,12 +1,12 @@
 from PIL import Image
 import numpy as np
-from solve.py import get_latest_snapshot_number, snapshot_number_to_caffemodel_str
 # Make sure that caffe is on the python path:
 caffe_root = '../../'  # this file is expected to be in {caffe_root}/examples/hed/
 import sys
 sys.path.insert(0, caffe_root + 'python')
 
 import caffe
+from solve.py import get_latest_snapshot_number, snapshot_number_to_caffemodel_str
 
 def main():
 	data_root = '../../data/'
