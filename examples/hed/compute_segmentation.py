@@ -10,9 +10,8 @@ import caffe
 from solve import get_latest_snapshot_number, snapshot_number_to_caffemodel_str
 import argparse
 
-def main(caffe_mode):
-	data_root = '../../data/'
-	with open(data_root + 'test_pair.lst') as f:
+def main(caffe_mode, data_root, pair_lst_name):
+	with open(data_root + pair_lst_name) as f:
 	    test_lst = [x.split()[0] for x in f.readlines()] # take first item - the image
 	    
 	#test_lst = [data_root + x.strip() for x in test_lst] # full paths to each training image
@@ -87,5 +86,7 @@ if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description='Test out hed + save some images!')
 	parser.add_argument('--caffe-mode', dest='caffe_mode', type=str,
                     help='Caffe mode (CPU or GPU)', default='GPU')
+	parser.add_argument('--data-root', dest='data_root', type=str, help='Path relative to this dir of the data', default='../../data/')
+	parser.add_argument('--pair-lst', dest='pair_lst', type=str, help='Name of file in data-root that specifies images i.e. *_pair.lst', default='test_pair.lst') 
 	args = parser.parse_args()
-	main(args.caffe_mode)
+	main(args.caffe_mode, args.data_root, args.pair_lst)
