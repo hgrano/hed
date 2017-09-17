@@ -65,8 +65,15 @@ def main(caffe_mode):
 		fuse_uint16 = fuse.astype(np.uint16)
 		print 'np.sum(fuse.astype(uint16)) =', np.sum(fuse_uint16)
 		img_number_str = test_lst[idx][(test_lst[idx].rfind('/') + 1):] # e.g. "0.0.png"
+		fuse_uint8 = np.zeros(fuse.shape, dtype=np.uint8)
+		for i in range(0, fuse.shape[0]):
+			for j in range(0, fuse.shape([1])):
+				if fuse[i, j] > 0.0:
+					fuse_uint16[i, j] = 255
+				elif fuse[i, j] < 0.0:
+					print 'hm negative value here...'	
 		print 'fuse.shape ==', fuse.shape
-		png.from_array(fuse_uint16, 'L').save('fuse_output_' + img_number_str)
+		png.from_array(fuse_uint8, 'L').save('fuse_output_' + img_number_str)
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description='Test out hed + save some images!')
