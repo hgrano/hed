@@ -70,7 +70,7 @@ def main(caffe_mode):
 		for i in range(0, rows):
 			for j in range(0, cols):
 				if fuse[i, j] > 0.0:
-					fuse_uint16[i, j] = 255
+					fuse_uint8[i, j] = 255
 				elif fuse[i, j] < 0.0:
 					print 'hm negative value here...'	
 		print 'fuse.shape ==', fuse.shape
