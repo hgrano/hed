@@ -6,7 +6,7 @@ import sys
 sys.path.insert(0, caffe_root + 'python')
 
 import caffe
-from solve.py import get_latest_snapshot_number, snapshot_number_to_caffemodel_str
+from solve import get_latest_snapshot_number, snapshot_number_to_caffemodel_str
 
 def main():
 	data_root = '../../data/'
