@@ -66,8 +66,9 @@ def main(caffe_mode):
 		print 'np.sum(fuse.astype(uint16)) =', np.sum(fuse_uint16)
 		img_number_str = test_lst[idx][(test_lst[idx].rfind('/') + 1):] # e.g. "0.0.png"
 		fuse_uint8 = np.zeros(shape=fuse.shape, dtype=np.uint8)
-		for i in range(0, fuse.shape[0]):
-			for j in range(0, fuse.shape([1])):
+		rows, cols = fuse.shape
+		for i in range(0, rows):
+			for j in range(0, cols):
 				if fuse[i, j] > 0.0:
 					fuse_uint16[i, j] = 255
 				elif fuse[i, j] < 0.0:
