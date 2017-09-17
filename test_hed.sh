@@ -37,4 +37,4 @@ export PYTHONPATH=$FASTDIR/hed/python:$PYTHONPATH # change as necessary to your 
 export LD_LIBRARY_PATH=$FASTDIR/boost_py/lib:$LD_LIBRARY_PATH # change path as necessary to your installation of Boost.Python
 
 cd examples/hed
-python compute_segmentation.py
+python compute_segmentation.py --data-root ../../real_data --pair-lst real.lst
