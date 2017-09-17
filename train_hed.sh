@@ -19,7 +19,7 @@ pip install python-gflags
 pip install pyyaml
 pip install Pillow
 pip install six
-
+pip install pypng
 
 # hed requirements
 module load Boost/1.61.0-foss-2016b
