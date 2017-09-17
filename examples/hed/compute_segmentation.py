@@ -60,6 +60,7 @@ def main(caffe_mode):
 		fuse = net.blobs['sigmoid-fuse'].data[0][0,:,:]
 
 		img_number_str = test_lst[idx][(test_lst[idx].rfind('/') + 1):] # e.g. "0.0.png"
+		print 'fuse.shape ==', fuse.shape
 		png.from_array(fuse, 'L').save('fuse_output_' + img_number_str)
 
 if __name__ == '__main__':
