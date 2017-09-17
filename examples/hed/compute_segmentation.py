@@ -36,7 +36,7 @@ def main():
 		return
 	net = caffe.Net('deploy.prototxt', snapshot_number_to_caffemodel_str(latest_snapshot_number), caffe.TEST)
 
-	for idx in range(0, len(im_list)):
+	for idx in range(0, len(im_lst)):
 		in_ = im_lst[idx]
 		in_ = in_.transpose((2,0,1))
 		# shape for input (data blob is N x C x H x W), set data
