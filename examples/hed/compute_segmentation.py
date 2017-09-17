@@ -52,16 +52,21 @@ def main(caffe_mode):
 		net.blobs['data'].data[...] = in_
 		# run net and take argmax for prediction
 		net.forward()
-		out1 = net.blobs['sigmoid-dsn1'].data[0][0,:,:]
-		out2 = net.blobs['sigmoid-dsn2'].data[0][0,:,:]
-		out3 = net.blobs['sigmoid-dsn3'].data[0][0,:,:]
-		out4 = net.blobs['sigmoid-dsn4'].data[0][0,:,:]
-		out5 = net.blobs['sigmoid-dsn5'].data[0][0,:,:]
+		outs = [net.blobs['sigmoid-dsn' + str(i)].data[0][0,:,:] for i in range(1, 6)]
+# 		out1 = net.blobs['sigmoid-dsn1'].data[0][0,:,:]
+# 		out2 = net.blobs['sigmoid-dsn2'].data[0][0,:,:]
+# 		out3 = net.blobs['sigmoid-dsn3'].data[0][0,:,:]
+# 		out4 = net.blobs['sigmoid-dsn4'].data[0][0,:,:]
+# 		out5 = net.blobs['sigmoid-dsn5'].data[0][0,:,:]
+		for i, out in enumerate(outs):
+			print 'np.sum(outs[' + str(i) + '] =', np.sum(out)
 		fuse = net.blobs['sigmoid-fuse'].data[0][0,:,:]
-
+		print 'np.sum(fuse) =', np.sum(fuse)
+		fuse_uint16 = fuse.astype(np.uint16)
+		print 'np.sum(fuse.astype(uint16)) =', np.sum(fuse_uint16)
 		img_number_str = test_lst[idx][(test_lst[idx].rfind('/') + 1):] # e.g. "0.0.png"
 		print 'fuse.shape ==', fuse.shape
-		png.from_array(fuse.astype(np.uint16), 'L').save('fuse_output_' + img_number_str)
+		png.from_array(fuse_uint16, 'L').save('fuse_output_' + img_number_str)
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description='Test out hed + save some images!')
