@@ -74,6 +74,7 @@ def main(caffe_mode):
 				elif fuse[i, j] < 0.0:
 					print 'hm negative value here...'	
 		print 'fuse.shape ==', fuse.shape
+		print 'np.sum(fuse_uint8) ==', np.sum(fuse_uint8)
 		png.from_array(fuse_uint8, 'L').save('fuse_output_' + img_number_str)
 
 if __name__ == '__main__':
