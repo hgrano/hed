@@ -17,10 +17,10 @@ def get_latest_snapshot_number():
         return None
 
 def snapshot_number_to_solverstate_str(snapshot_number):
-    return 'snapshot_iter_' + str(last_snapshot_number) + '.solverstate'
+    return 'snapshot_iter_' + str(snapshot_number) + '.solverstate'
 
 def snapshot_number_to_caffemodel_str(snapshot_number):
-    return 'snapshot_iter_' + str(last_snapshot_number) + '.caffemodel'
+    return 'snapshot_iter_' + str(snapshot_number) + '.caffemodel'
 
 # make a bilinear interpolation kernel
 # credit @longjon
