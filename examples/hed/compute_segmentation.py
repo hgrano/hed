@@ -67,6 +67,8 @@ def main(caffe_mode):
 		img_number_str = test_lst[idx][(test_lst[idx].rfind('/') + 1):] # e.g. "0.0.png"
 		fuse_uint8 = np.zeros(shape=fuse.shape, dtype=np.uint8)
 		rows, cols = fuse.shape
+		print 'np.max(fuse) ==', np.max(fuse)
+		print 'np.min(fuse) ==', np.min(fuse)
 		for i in range(0, rows):
 			for j in range(0, cols):
 				if fuse[i, j] > 255.0:
