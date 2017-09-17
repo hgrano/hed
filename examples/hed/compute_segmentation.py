@@ -69,10 +69,14 @@ def main(caffe_mode):
 		rows, cols = fuse.shape
 		for i in range(0, rows):
 			for j in range(0, cols):
-				if fuse[i, j] > 0.0:
-					fuse_uint8[i, j] = 255
+				if fuse[i, j] > 255.0:
+					print 'Error', fuse[i, j], 'is gt 255'
+					return
 				elif fuse[i, j] < 0.0:
 					print 'hm negative value here...'	
+					return
+				else:
+					fuse[i, j] = np.uint8(fuse[i, j])
 		print 'fuse.shape ==', fuse.shape
 		print 'np.sum(fuse_uint8) ==', np.sum(fuse_uint8)
 		png.from_array(fuse_uint8, 'L').save('fuse_output_' + img_number_str)
