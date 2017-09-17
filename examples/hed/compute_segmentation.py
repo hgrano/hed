@@ -12,7 +12,7 @@ import argparse
 
 def main(caffe_mode):
 	data_root = '../../data/'
-	with open(data_root + 'val_pair.lst') as f:
+	with open(data_root + 'test_pair.lst') as f:
 	    test_lst = [x.split()[0] for x in f.readlines()] # take first item - the image
 	    
 	#test_lst = [data_root + x.strip() for x in test_lst] # full paths to each training image
