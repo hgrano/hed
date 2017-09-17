@@ -71,14 +71,14 @@ def main(caffe_mode):
 		print 'np.min(fuse) ==', np.min(fuse)
 		for i in range(0, rows):
 			for j in range(0, cols):
-				if fuse[i, j] > 255.0:
-					print 'Error', fuse[i, j], 'is gt 255'
+				if fuse[i, j] > 1.0:
+					print 'Error', fuse[i, j], 'is gt 1.0'
 					return
 				elif fuse[i, j] < 0.0:
 					print 'hm negative value here...'	
 					return
 				else:
-					fuse_uint8[i, j] = np.uint8(fuse[i, j])
+					fuse_uint8[i, j] = np.uint8(np.round(fuse[i, j] * 255.0))
 		print 'fuse.shape ==', fuse.shape
 		print 'np.sum(fuse_uint8) ==', np.sum(fuse_uint8)
 		png.from_array(fuse_uint8, 'L').save('fuse_output_' + img_number_str)
