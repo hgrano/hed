@@ -5,13 +5,13 @@ import png
 caffe_root = '../../'  # this file is expected to be in {caffe_root}/examples/hed/
 import sys
 sys.path.insert(0, caffe_root + 'python')
-
 import caffe
 from solve import get_latest_snapshot_number, snapshot_number_to_caffemodel_str
 import argparse
+import os
 
 def main(caffe_mode, data_root, pair_lst_name):
-	with open(data_root + pair_lst_name) as f:
+	with open(os.path.join(data_root, pair_lst_name)) as f:
 	    test_lst = [x.split()[0] for x in f.readlines()] # take first item - the image
 	    
 	#test_lst = [data_root + x.strip() for x in test_lst] # full paths to each training image
@@ -20,7 +20,7 @@ def main(caffe_mode, data_root, pair_lst_name):
 
 	im_lst = []
 	for i in range(0, len(test_lst)):
-	    im = Image.open(data_root + test_lst[i])
+	    im = Image.open(os.path.join(data_root, test_lst[i]))
 	    in_ = np.array(im, dtype=np.float32)
 	    in_ = in_[:,:,::-1]
 	    in_ -= np.array((17.84271756, 22.54725679, 36.89356086))
