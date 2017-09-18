@@ -66,18 +66,21 @@ def main(caffe_mode, data_root, pair_lst_name):
 # 		out3 = net.blobs['sigmoid-dsn3'].data[0][0,:,:]
 # 		out4 = net.blobs['sigmoid-dsn4'].data[0][0,:,:]
 # 		out5 = net.blobs['sigmoid-dsn5'].data[0][0,:,:]
-		for i, out in enumerate(outs):
-			print 'np.sum(outs[' + str(i) + '] =', np.sum(out)
+# 		for i, out in enumerate(outs):
+# 			print 'np.sum(outs[' + str(i) + '] =', np.sum(out)
 		fuse = net.blobs['sigmoid-fuse'].data[0][0,:,:]
 		print 'np.sum(fuse) =', np.sum(fuse)
 		fuse_uint16 = fuse.astype(np.uint16)
-		print 'np.sum(fuse.astype(uint16)) =', np.sum(fuse_uint16)
+# 		print 'np.sum(fuse.astype(uint16)) =', np.sum(fuse_uint16)
 		img_number_str = test_lst[idx][(test_lst[idx].rfind('/') + 1):] # e.g. "0.0.png"
 		fuse_uint8 = np.zeros(shape=fuse.shape, dtype=np.uint8)
 		fuse_uint8_binary = np.zeros(shape=fuse.shape, dtype=np.uint8)
 		rows, cols = fuse.shape
-		print 'np.max(fuse) ==', np.max(fuse)
-		print 'np.min(fuse) ==', np.min(fuse)
+# 		print 'np.max(fuse) ==', np.max(fuse)
+# 		print 'np.min(fuse) ==', np.min(fuse)
+		fuse_flattened = fuse.flatten()
+		fuse_flattened.sort()
+		thresh = fuse_flattened[int(0.88 * len(fuse_flattened))]
 		for i in range(0, rows):
 			for j in range(0, cols):
 				if fuse[i, j] > 1.0:
@@ -88,9 +91,9 @@ def main(caffe_mode, data_root, pair_lst_name):
 					return
 				else:
 					fuse_uint8[i, j] = np.uint8(np.round(fuse[i, j] * 255.0))
-					fuse_uint8_binary[i, j] = np.uint8(0 if fuse[i, j] < 0.03 else 255)
-		print 'fuse.shape ==', fuse.shape
-		print 'np.sum(fuse_uint8) ==', np.sum(fuse_uint8)
+					fuse_uint8_binary[i, j] = np.uint8(0 if fuse[i, j] < thresh else 255)
+# 		print 'fuse.shape ==', fuse.shape
+# 		print 'np.sum(fuse_uint8) ==', np.sum(fuse_uint8)
 		png.from_array(fuse_uint8, 'L').save('fuse_output_' + img_number_str)
 		png.from_array(fuse_uint8_binary, 'L').save('fuse_output_binary_' + img_number_str)
 
