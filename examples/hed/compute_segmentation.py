@@ -22,6 +22,7 @@ def main(caffe_mode, data_root, pair_lst_name):
 	for i in range(0, len(test_lst)):
 	    im = Image.open(os.path.join(data_root, test_lst[i]))
 	    in_ = np.array(im, dtype=np.float32)
+	    print 'in_.shape ==', in_.shape	
 	    in_ = in_[:,:,::-1]
 	    in_ -= np.array((17.84271756, 22.54725679, 36.89356086))
 	    im_lst.append(in_)
