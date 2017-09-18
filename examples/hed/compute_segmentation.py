@@ -80,7 +80,7 @@ def main(caffe_mode, data_root, pair_lst_name):
 # 		print 'np.min(fuse) ==', np.min(fuse)
 		fuse_flattened = fuse.flatten()
 		fuse_flattened.sort()
-		thresh = fuse_flattened[int(0.88 * len(fuse_flattened))]
+		thresh = fuse_flattened[int(0.94 * len(fuse_flattened))]
 		for i in range(0, rows):
 			for j in range(0, cols):
 				if fuse[i, j] > 1.0:
