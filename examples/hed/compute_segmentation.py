@@ -88,7 +88,7 @@ def main(caffe_mode, data_root, pair_lst_name):
 					return
 				else:
 					fuse_uint8[i, j] = np.uint8(np.round(fuse[i, j] * 255.0))
-					fuse_uint8_binary = np.uint(0 if fuse[i, j] < 0.5 else 255)
+					fuse_uint8_binary = np.uint8(0 if fuse[i, j] < 0.5 else 255)
 		print 'fuse.shape ==', fuse.shape
 		print 'np.sum(fuse_uint8) ==', np.sum(fuse_uint8)
 		png.from_array(fuse_uint8, 'L').save('fuse_output_' + img_number_str)
