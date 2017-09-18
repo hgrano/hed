@@ -22,7 +22,13 @@ def main(caffe_mode, data_root, pair_lst_name):
 	for i in range(0, len(test_lst)):
 	    im = Image.open(os.path.join(data_root, test_lst[i]))
 	    in_ = np.array(im, dtype=np.float32)
-	    print 'in_.shape ==', in_.shape
+	    r, c, bitdepth = in_.shape
+	    if bitdepth != 3:
+		if bitdepth == 4:	
+	            in_ = in_[:, :, 0:3]
+		else:
+	            print 'Unrecognized bitdepth', bitdepth
+		    return
 	    print 'in_[0,0,:] ==', in_[0,0,:]
 	    print 'in_[499, 500, :] ==', in_[499, 500, :]	
 	    in_ = in_[:,:,::-1]
