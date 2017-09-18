@@ -74,6 +74,7 @@ def main(caffe_mode, data_root, pair_lst_name):
 		print 'np.sum(fuse.astype(uint16)) =', np.sum(fuse_uint16)
 		img_number_str = test_lst[idx][(test_lst[idx].rfind('/') + 1):] # e.g. "0.0.png"
 		fuse_uint8 = np.zeros(shape=fuse.shape, dtype=np.uint8)
+		fuse_uint8_binary = np.zeros(shape=fuse.shape, dtype=np.uint8)
 		rows, cols = fuse.shape
 		print 'np.max(fuse) ==', np.max(fuse)
 		print 'np.min(fuse) ==', np.min(fuse)
@@ -87,9 +88,11 @@ def main(caffe_mode, data_root, pair_lst_name):
 					return
 				else:
 					fuse_uint8[i, j] = np.uint8(np.round(fuse[i, j] * 255.0))
+					fuse_uint8_binary = np.uint(0 if fuse[i, j] < 0.5 else 255)
 		print 'fuse.shape ==', fuse.shape
 		print 'np.sum(fuse_uint8) ==', np.sum(fuse_uint8)
 		png.from_array(fuse_uint8, 'L').save('fuse_output_' + img_number_str)
+		png.from_array(fuse_uint8_binary, 'L').save('fuse_output_binary_' + img_number_str)
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description='Test out hed + save some images!')
