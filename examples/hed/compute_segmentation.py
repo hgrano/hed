@@ -65,6 +65,7 @@ def main(caffe_mode, data_root, pair_lst_name):
 		return
 	net = caffe.Net('deploy.prototxt', snapshot_number_to_caffemodel_str(latest_snapshot_number), caffe.TEST)
         ave_percent_correct = 0
+	ave_peak_percent = 0
 	for idx in range(0, len(im_lst)):
 		in_ = im_lst[idx]
 		in_ = in_.transpose((2,0,1))
@@ -95,6 +96,8 @@ def main(caffe_mode, data_root, pair_lst_name):
 		fuse_flattened.sort()
 		thresh = fuse_flattened[int(0.96 * len(fuse_flattened))]
 		sum_correct = 0
+		sum_peak_correct = 0
+		num_peak = 0
 		for i in range(0, rows):
 			for j in range(0, cols):
 				if fuse[i, j] > 1.0:
@@ -108,17 +111,23 @@ def main(caffe_mode, data_root, pair_lst_name):
 					fuse_uint8_binary[i, j] = np.uint8(0 if fuse[i, j] < thresh else 255)
 					result = -1 if fuse[i, j] < thresh else 1
 					truth = -1 if gt_im_lst[idx][i, j] == 0 else 1
+					
 					cross = result * truth
 					if cross == 1:
 						sum_correct += 1
+					if truth == 1:
+						num_peak += 1
+						if cross == 1:
+							sum_peak_correct += 1
 # 		print 'fuse.shape ==', fuse.shape
 # 		print 'np.sum(fuse_uint8) ==', np.sum(fuse_uint8)
 # 		png.from_array(fuse_uint8, 'L').save('fuse_output_' + img_number_str)
 # 		png.from_array(fuse_uint8_binary, 'L').save('fuse_output_binary_' + img_number_str)
-		print sum_correct
-		print '% correct', float(sum_correct) / (500.0 * 1000.0)
+		print sum_correct, sum_peak_correct
+		print '% correct', float(sum_correct) / (500.0 * 1000.0), float(sum_peak_correct) / float(num_peak)
 		ave_percent_correct += float(sum_correct) / (500.0 * 1000.0)
-	print 'ave % correct', ave_percent_correct / float(len(test_lst))
+		ave_peak_percent += float(sum_peak_correct) / float(num_peak)
+	print 'ave % correct', ave_percent_correct / float(len(test_lst)), ave_peak_percent / float(len(test_lst))
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description='Test out hed + save some images!')
