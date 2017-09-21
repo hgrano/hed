@@ -36,7 +36,7 @@ def main(caffe_mode, data_root, pair_lst_name):
 	    in_ = in_[:,:,::-1]
 	    in_ -= np.array((17.84271756, 22.54725679, 36.89356086))
 	    im_lst.append(in_)
-	    gt = Image.open(os.path.join(data, gt_lst[i]))
+	    gt = Image.open(os.path.join(data_root, gt_lst[i]))
 	    gt_ = np.array(gt, dtype=np.float32) 
 	    r, c, bitdepth = gt_.shape
 	    if bitdepth > 1:
