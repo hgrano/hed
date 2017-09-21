@@ -107,7 +107,7 @@ def main(caffe_mode, data_root, pair_lst_name):
 					fuse_uint8[i, j] = np.uint8(np.round(fuse[i, j] * 255.0))
 					fuse_uint8_binary[i, j] = np.uint8(0 if fuse[i, j] < thresh else 255)
 					result = -1 if fuse[i, j] < thresh else 1
-					truth = -1 if gts[idx][i, j] == 0 else 1
+					truth = -1 if gt_im_lst[idx][i, j] == 0 else 1
 					cross = result * truth
 					if cross == 1:
 						sum_correct += 1
