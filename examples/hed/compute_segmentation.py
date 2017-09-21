@@ -13,12 +13,14 @@ import os
 def main(caffe_mode, data_root, pair_lst_name):
 	with open(os.path.join(data_root, pair_lst_name)) as f:
 	    test_lst = [x.split()[0] for x in f.readlines()] # take first item - the image
+	    gt_lst = [x.split()[1] for x in f.readlines()]	
 	    
 	#test_lst = [data_root + x.strip() for x in test_lst] # full paths to each training image
 
 	test_lst = test_lst[0:min(len(test_lst), 15)]
 
 	im_lst = []
+	gt_im_lst = []
 	for i in range(0, len(test_lst)):
 	    im = Image.open(os.path.join(data_root, test_lst[i]))
 	    in_ = np.array(im, dtype=np.float32)
@@ -34,6 +36,13 @@ def main(caffe_mode, data_root, pair_lst_name):
 	    in_ = in_[:,:,::-1]
 	    in_ -= np.array((17.84271756, 22.54725679, 36.89356086))
 	    im_lst.append(in_)
+	    gt = Image.open(os.path.join(data, gt_lst[i]))
+	    gt_ = np.array(gt, dtype=float.32) 
+	    r, c, bitdepth = gt_.shape
+	    if bitdepth > 1:
+		gt_ = gt_[:, :, 0]
+	    gt_im_lst.append(gt_)
+	
 
 	#remove the following two lines if testing with cpu
 	if caffe_mode == 'GPU':
@@ -51,7 +60,7 @@ def main(caffe_mode, data_root, pair_lst_name):
 		print 'Error no snapshot caffemodel available!'
 		return
 	net = caffe.Net('deploy.prototxt', snapshot_number_to_caffemodel_str(latest_snapshot_number), caffe.TEST)
-
+        ave_percent_correct = 0
 	for idx in range(0, len(im_lst)):
 		in_ = im_lst[idx]
 		in_ = in_.transpose((2,0,1))
@@ -81,6 +90,7 @@ def main(caffe_mode, data_root, pair_lst_name):
 		fuse_flattened = fuse.flatten()
 		fuse_flattened.sort()
 		thresh = fuse_flattened[int(0.96 * len(fuse_flattened))]
+		sum_correct = 0
 		for i in range(0, rows):
 			for j in range(0, cols):
 				if fuse[i, j] > 1.0:
@@ -92,10 +102,19 @@ def main(caffe_mode, data_root, pair_lst_name):
 				else:
 					fuse_uint8[i, j] = np.uint8(np.round(fuse[i, j] * 255.0))
 					fuse_uint8_binary[i, j] = np.uint8(0 if fuse[i, j] < thresh else 255)
+					result = -1 if fuse[i, j] < thresh else 1
+					truth = -1 if gt[i, j] == 0 else 1
+					cross = result * truth
+					if cross == 1:
+						sum_correct += 1
 # 		print 'fuse.shape ==', fuse.shape
 # 		print 'np.sum(fuse_uint8) ==', np.sum(fuse_uint8)
-		png.from_array(fuse_uint8, 'L').save('fuse_output_' + img_number_str)
-		png.from_array(fuse_uint8_binary, 'L').save('fuse_output_binary_' + img_number_str)
+# 		png.from_array(fuse_uint8, 'L').save('fuse_output_' + img_number_str)
+# 		png.from_array(fuse_uint8_binary, 'L').save('fuse_output_binary_' + img_number_str)
+		print sum_correct
+		print '% correct', float(sum_correct) / (500.0 * 1000.0)
+		ave_percent_correct += float(sum_correct) / (500.0 * 1000.0)
+	print 'ave % correct', ave_percent_correct / float(len(test_lst))
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description='Test out hed + save some images!')
