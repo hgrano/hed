@@ -37,10 +37,13 @@ def main(caffe_mode, data_root, pair_lst_name):
 	    in_ -= np.array((17.84271756, 22.54725679, 36.89356086))
 	    im_lst.append(in_)
 	    gt = Image.open(os.path.join(data, gt_lst[i]))
-	    gt_ = np.array(gt, dtype=float.32) 
+	    gt_ = np.array(gt, dtype=np.float32) 
 	    r, c, bitdepth = gt_.shape
 	    if bitdepth > 1:
 		gt_ = gt_[:, :, 0]
+	    for i in range(0, r):
+		for j in range(0, c):
+			gt_[i, j] = 0 if gt_[i, j] == 0 else 1
 	    gt_im_lst.append(gt_)
 	
 
