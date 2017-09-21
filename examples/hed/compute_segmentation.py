@@ -12,8 +12,9 @@ import os
 
 def main(caffe_mode, data_root, pair_lst_name):
 	with open(os.path.join(data_root, pair_lst_name)) as f:
-	    test_lst = [x.split()[0] for x in f.readlines()] # take first item - the image
-	    gt_lst = [x.split()[1] for x in f.readlines()]	
+	    file_lines = f.readlines()	
+	    test_lst = [x.split()[0] for x in file_lines] # take first item - the image
+	    gt_lst = [x.split()[1] for x in file_lines]	
 	    
 	#test_lst = [data_root + x.strip() for x in test_lst] # full paths to each training image
 
